@@ -28,7 +28,7 @@ namespace EPortalAdmin.Persistence
             services.AddScoped<IOperationClaimRepository, OperationClaimRepository>();
             services.AddScoped<IOtpAuthenticatorRepository, OtpAuthenticatorRepository>();
             services.AddScoped<IUserOperationClaimRepository, UserOperationClaimRepository>();
-
+            services.AddScoped<ITaxRepository, TaxRepository>();
 
             services.AddScoped<IRepository<EmailAuthenticator>, EmailAuthenticatorRepository>();
             services.AddScoped<IRepository<Endpoint>, EndpointRepository>();
@@ -41,6 +41,8 @@ namespace EPortalAdmin.Persistence
             services.AddScoped<IRepository<OtpAuthenticator>, OtpAuthenticatorRepository>();
             services.AddScoped<IRepository<User>, UserRepository>();
             services.AddScoped<IRepository<UserOperationClaim>, UserOperationClaimRepository>();
+            services.AddScoped<IRepository<Tax>, TaxRepository>();
+
             #endregion
 
             return services;

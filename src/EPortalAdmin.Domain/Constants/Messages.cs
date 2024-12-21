@@ -126,5 +126,10 @@
             public static readonly string HttpContextAccessorAlreadyConfigured = "HttpContextAccessor has already been configured.";
             public static readonly string HttpContextAccessorNotConfigured = "HttpContextAccessor has not been configured.";
         }
+
+        public static class Tax
+        {
+            public static readonly string TaxNotFound = "Vergi bulunamadı";
+        }
     }
 }

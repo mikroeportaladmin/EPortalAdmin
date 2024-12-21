@@ -46,7 +46,10 @@ namespace EPortalAdmin.Core.Domain.Enums
 
         [Description("Doğrulayıcı Bulunamadı.")]
         AuthenticatorNotFound = 1012,
-
+        
+        [Description]
+        TaxNotFound = 1013,
+        
         #endregion
 
         #region BusinessExceptionCodes (2000-2999)

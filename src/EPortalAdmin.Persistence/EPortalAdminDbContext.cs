@@ -25,12 +25,19 @@ namespace EPortalAdmin.Persistence
         public DbSet<ServiceLog> ServiceLogs { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
+        public DbSet<Tax> Taxes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
                 base.OnConfiguring(
                     optionsBuilder.UseSqlServer(Configuration.GetConnectionString("EPortalAdminConnectionString")));
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Tax>().HasQueryFilter(u => !u.IsDeleted);
+            base.OnModelCreating(modelBuilder);
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
