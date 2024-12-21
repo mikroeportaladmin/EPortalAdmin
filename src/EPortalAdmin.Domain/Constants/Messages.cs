@@ -27,6 +27,7 @@
             public static readonly string OtpAuthenticatorNotFound = "OTP kodu bulunamadı.";
             public static readonly string OtpVerified = "OTP onaylandı.";
             public static readonly string EmailVerified = "Email onaylandı.";
+
         }
         public static class User
         {
