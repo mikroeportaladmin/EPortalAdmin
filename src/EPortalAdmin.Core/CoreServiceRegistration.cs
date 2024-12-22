@@ -8,6 +8,7 @@ namespace EPortalAdmin.Core
     {
         public static IServiceCollection AddCoreServices(this IServiceCollection services, IConfiguration configuration)
         {
+
             services.AddLoggingService(configuration);
             services.AddStorageServices(configuration);
             services.AddMailServices();
