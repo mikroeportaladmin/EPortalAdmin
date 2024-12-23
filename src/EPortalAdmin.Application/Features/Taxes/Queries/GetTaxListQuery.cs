@@ -17,10 +17,8 @@ namespace EPortalAdmin.Application.Features.Taxes.Queries
         public class GetTaxListQueryHandler : ApplicationFeatureBase<Tax>, IRequestHandler<GetTaxListQuery, DataResult<TaxListDto>>
         {
             public async Task<DataResult<TaxListDto>> Handle(GetTaxListQuery request, CancellationToken cancellationToken)
-            {
-                var query = Repository.GetAsQueryable();
-                
-                var list = await Repository.GetListAsync(
+            {                
+                var taxList = await Repository.GetListAsync(
                     predicate: (x => (string.IsNullOrEmpty(request.Code) || x.Code!.ToUpper().Contains(request.Code.ToUpper())) 
                                      && (string.IsNullOrEmpty(request.Name) || x.Name!.ToUpper().Contains(request.Name.ToUpper()))
                                      && (string.IsNullOrEmpty(request.ShortName) || x.ShortName!.ToUpper().Contains(request.ShortName.ToUpper()))
@@ -30,9 +28,9 @@ namespace EPortalAdmin.Application.Features.Taxes.Queries
                     index: request.Page,
                     size: request.PageSize);
 
-                var dtoList = Mapper.Map<TaxListDto>(list);
+                var dtoTaxList = Mapper.Map<TaxListDto>(taxList);
 
-                return new SuccessDataResult<TaxListDto>(dtoList);
+                return new SuccessDataResult<TaxListDto>(dtoTaxList);
             }
         }
     }
