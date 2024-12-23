@@ -17,9 +17,7 @@ namespace EPortalAdmin.Application.Features.Taxes.Queries
         public class GetTaxListQueryHandler : ApplicationFeatureBase<Tax>, IRequestHandler<GetTaxListQuery, DataResult<TaxListDto>>
         {
             public async Task<DataResult<TaxListDto>> Handle(GetTaxListQuery request, CancellationToken cancellationToken)
-            {
-                var query = Repository.GetAsQueryable();
-                
+            {                
                 var list = await Repository.GetListAsync(
                     predicate: (x => (string.IsNullOrEmpty(request.Code) || x.Code!.ToUpper().Contains(request.Code.ToUpper())) 
                                      && (string.IsNullOrEmpty(request.Name) || x.Name!.ToUpper().Contains(request.Name.ToUpper()))
