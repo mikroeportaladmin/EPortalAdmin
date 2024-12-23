@@ -5,6 +5,7 @@ using EPortalAdmin.Core.Attributes;
 using EPortalAdmin.Core.Domain.Configurations;
 using EPortalAdmin.Core.Domain.Dtos;
 using EPortalAdmin.Core.Domain.Entities;
+using EPortalAdmin.Core.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -129,12 +130,13 @@ namespace EPortalAdmin.WebAPI.Controllers
         }
 
         private string GetRefreshTokenFromCookies() =>
-            Request.Cookies["refreshToken"] ?? throw new ArgumentException("Refresh token is not found in request cookies.");
+            Request.Cookies["refreshToken"] ?? throw new NotFoundException("Refresh token is not found in request cookies.");
 
         private void SetRefreshTokenToCookie(RefreshToken refreshToken)
         {
-            CookieOptions cookieOptions = new() { HttpOnly = true, Expires = DateTime.Now.AddDays(7), Secure = true };
+            CookieOptions cookieOptions = new() { HttpOnly = true, Expires = DateTime.Now.AddDays(7), Secure = true, SameSite = SameSiteMode.None};
             Response.Cookies.Append("refreshToken", refreshToken.Token, cookieOptions);
         }
     }
 }
+    

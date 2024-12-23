@@ -4,7 +4,6 @@ using EPortalAdmin.Core.Domain.Entities;
 using EPortalAdmin.Core.Domain.Enums;
 using EPortalAdmin.Core.Exceptions;
 using EPortalAdmin.Domain.Constants;
-using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,12 +19,12 @@ namespace EPortalAdmin.Application.Features.Taxes.Commands
         public int? Factor { get; set; }
         public bool? IsRate { get; set; }
 
-        public class SaveTaxCommandHandler(IValidator<SaveTaxCommand> validator)
+        public class SaveTaxCommandHandler()
             : ApplicationFeatureBase<Tax>, IRequestHandler<SaveTaxCommand, DataResult<TaxDto>>
         {
             public async Task<DataResult<TaxDto>> Handle(SaveTaxCommand request, CancellationToken cancellationToken)
             {
-                Tax tax = null;
+                Tax? tax = null;
                 if (request.Id.HasValue)
                 {
                     tax = await Repository.GetAsync(m => m.Id == request.Id, cancellationToken: cancellationToken) 
@@ -48,7 +47,7 @@ namespace EPortalAdmin.Application.Features.Taxes.Commands
                     await CheckIfTaxCodeExistsAsync(request);
                     
                     tax = Mapper.Map<Tax>(request);
-                    Repository.Add(tax);
+                    await Repository.AddAsync(tax, cancellationToken);
                 }
                 await Repository.SaveChangesAsync(cancellationToken);
                 var taxDto = Mapper.Map<TaxDto>(tax);

@@ -21,7 +21,7 @@ namespace EPortalAdmin.Application.Features.Taxes.Commands
 
                 tax.MarkAsDelete(CurrentUserId);
                 await Repository.SaveChangesAsync(cancellationToken);
-                return new Result(true);
+                return new SuccessResult();
             }
         }
     }
